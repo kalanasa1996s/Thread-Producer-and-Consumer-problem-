@@ -2,7 +2,7 @@ import java.util.LinkedList;
 
 public class Prodcon extends Thread {
 
-    LinkedList list = new LinkedList();
+    LinkedList<Integer> list = new LinkedList();
     int capacity =1 ;
 
     public synchronized void producer() throws InterruptedException {
@@ -23,6 +23,24 @@ public class Prodcon extends Thread {
         }
 
 
+    }
+
+    public synchronized void consumer() throws InterruptedException {
+        int val;
+        while (true){
+
+            if (list.size() == 0){
+                wait();
+            }else {
+
+                val = list.removeFirst();
+                System.out.println("COnsumer consume"+val);
+                notify();
+
+                Thread.sleep(1000);
+            }
+
+        }
     }
 
 }
